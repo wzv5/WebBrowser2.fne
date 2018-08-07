@@ -1,0 +1,28 @@
+1静默 - Silent
+2离线浏览 - Offline
+3可拖放 - RegisterAsDropTarget
+4顶层浏览器 - RegisterAsBrowser
+-----------------------
+5地址栏 - AddressBar 
+6全屏幕 - FullScreen 
+7菜单栏 - MenuBar 
+/8可调边框 - Resizble 
+9状态栏 - StatusBar 
+
+10影院模式 - TheaterMode 
+11工具栏 - ToolBar 
+12是否可视 - Visible
+13繁忙 - Busy
+14是否顶层容器 - TopLevelContainer
+
+15就绪状态 -ReadyState
+16程序全路径 - FullName 返回IE应用程序的全路径
+17地址 - LocationURL
+18标题 - LocationName
+19文档类型 - Type
+
+
+'状态栏文本 - StatusText 
+'运行目录 - Path 返回IE应用程序的全路径
+'IE窗口句柄 - HWND 返回IE应用程序的全路径
+'控件名 - Name
