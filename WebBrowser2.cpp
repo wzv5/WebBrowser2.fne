@@ -1822,13 +1822,13 @@ static LIB_INFO s_LibInfo =
 #define		LI_LIB_GUID_STR	"F600363078DE49c5B10AF62C7A13B37E"
 /*guid str*/			_T (LI_LIB_GUID_STR),
 
-/*m_nMajorVersion*/		2,
+/*m_nMajorVersion*/		3,
 /*m_nMinorVersion*/		0,
 
 //!!!	注意：凡是增删或更改了命令、窗口单元、数据类型、帮助信息等，只要对帮助
 //!!! 文件生成会产生影响，都必须升级版本号，而不能只修改BuildNumber。
 //!!!   改动后尽量升级版本号!!!
-/*m_nBuildNumber*/		2,	// 1: 2.5;  2: 2.5补遗版; 3: 3.0版
+/*m_nBuildNumber*/		3,	// 1: 2.5;  2: 2.5补遗版; 3: 3.0版
 		// 构建版本号，无需对此版本号作任何处理。
 		//   本版本号仅用作区分相同正式版本号的库（譬如仅仅修改了几个 BUG）。
 		// 任何公布过给用户使用的版本其此版本号都应该不一样。

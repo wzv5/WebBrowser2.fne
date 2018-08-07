@@ -130,6 +130,8 @@ protected:
 	afx_msg void OnWindowSetWidth(long Width);
 	afx_msg void OnWindowSetResizable(BOOL Resizable);
 	afx_msg void OnWindowClosing(BOOL IsChildWindow, BOOL FAR* Cancel);
+	afx_msg void OnNewWindow3(LPDISPATCH* ppDisp, BOOL* Cancel, long dwFlags, LPCTSTR bstrUrlContext, LPCTSTR bstrUrl);
+
 	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 	DECLARE_EVENTSINK_MAP()
 	//}}AFX_MSG

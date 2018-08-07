@@ -85,6 +85,7 @@ BEGIN_EVENTSINK_MAP(CViewHtml, CHtmlView)
 	ON_EVENT(CViewHtml, 59648, 266 /* WindowSetWidth */, OnWindowSetWidth, VTS_I4)
 	ON_EVENT(CViewHtml, 59648, 262 /* WindowSetResizable */, OnWindowSetResizable, VTS_BOOL)
 	ON_EVENT(CViewHtml, 59648, 263 /* WindowClosing */, OnWindowClosing, VTS_BOOL VTS_PBOOL)
+	ON_EVENT(CViewHtml, 59648, 273, OnNewWindow3, VTS_PDISPATCH VTS_PBOOL VTS_I4 VTS_BSTR VTS_BSTR)
 
 	//}}AFX_EVENTSINK_MAP
 END_EVENTSINK_MAP()
@@ -442,6 +443,28 @@ BOOL CViewHtml::OnHtmlOnclick(IHTMLEventObj *pEvtObj)
 			return FALSE;
 	
 	return TRUE;
+}
+
+void CViewHtml::OnNewWindow3(LPDISPATCH* ppDisp, BOOL* Cancel, long dwFlags, LPCTSTR bstrUrlContext, LPCTSTR bstrUrl)
+{
+	// TODO: Add your control notification handler code here
+	EVENT_NOTIFY2 event(m_dwWinFormID, m_dwUnitID, 18);
+	event.m_nArgCount = 5;
+
+	event.m_arg[0].m_inf.m_ppCompoundData = (void **)&ppDisp;
+	event.m_arg[0].m_dwState = EAV_IS_POINTER;
+
+	event.m_arg[1].m_inf.m_pBool = Cancel;
+
+	event.m_arg[2].m_inf.m_int = dwFlags;
+
+	event.m_arg[3].m_inf.m_ppText = (char **)(&bstrUrlContext);
+	event.m_arg[3].m_dwState = EAV_IS_POINTER;
+
+	event.m_arg[4].m_inf.m_ppText = (char **)(&bstrUrl);
+	event.m_arg[4].m_dwState = EAV_IS_POINTER;
+
+	NotifySys(NRS_EVENT_NOTIFY2, (DWORD)&event);
 }
 
 //////////////////////////////////
@@ -896,7 +919,43 @@ static EVENT_ARG_INFO2 s_HtmlViewerArgInfo [] =
 /*explain*/	_WT("该对象包含有相关事件的参数，比如菜单的弹出位置和发生事件的对象"),
 /*state*/	EAS_BY_REF,
 /*m_dtDataType*/ DTP_COM_OBJECT,
-	}
+	},
+	
+	//****** 打开新窗口23
+	{
+		/*name*/	_WT("浏览器对象"),
+		/*explain*/	_WT("为该对象赋值将要打开的新浏览器窗口对象。"),
+		/*state*/	EAS_BY_REF,
+		/*m_dtDataType*/ DTP_COM_OBJECT,
+	},
+	//****** 打开新窗口24
+	{
+		/*name*/	_WT("取消打开"),
+		/*explain*/	_WT("赋值真不允许打开，赋值假或不赋值值允许打开。"),
+		/*state*/	EAS_BY_REF,
+		/*m_dtDataType*/ SDT_BOOL,
+	},
+	//****** 打开新窗口25
+	{
+		/*name*/	_WT("Flag"),
+		/*explain*/	_WT("The flags from the NWMF enumeration that pertain to the new window."),
+		/*state*/	(1 << 0),
+		/*m_dtDataType*/ SDT_INT,
+	},
+	//****** 打开新窗口26
+	{
+		/*name*/	_WT("UrlContext"),
+		/*explain*/	_WT("The URL of the page that is opening the new window."),
+		/*state*/	EAS_BY_REF,
+		/*m_dtDataType*/ SDT_TEXT,
+	},
+	//****** 打开新窗口27
+	{
+		/*name*/	_WT("Url"),
+		/*explain*/	_WT("The URL that is opened in the new window."),
+		/*state*/	EAS_BY_REF,
+		/*m_dtDataType*/ SDT_TEXT,
+	},
 };
 
 // !!! 此处的定义顺序绝对不可改变，主默认信息放在首位。
@@ -1031,6 +1090,14 @@ EVENT_INFO2 g_HtmlViewerEvent [] =
 /*m_nArgCount*/			1,
 /*m_pBeginArgInfo*/		&s_HtmlViewerArgInfo [22],
 /*m_dtRetDataType*/		SDT_BOOL,
+	},
+	{
+	_WT("即将打开新窗口2"),//18
+	_WT("在浏览器即将打开新窗口浏览另一个页面之前产生此事件，包含新窗口的额外信息。参数二决定是否打开"),
+	/*m_dwState*/			EV_IS_VER2 | _EVENT_OS(__OS_WIN),
+	/*m_nArgCount*/			5,
+	/*m_pBeginArgInfo*/		&s_HtmlViewerArgInfo[23],
+	/*m_dtRetDataType*/		 _SDT_NULL,
 	},
 };
 INT g_HtmlViewerEventCount = sizeof (g_HtmlViewerEvent) / sizeof (g_HtmlViewerEvent [0]);
