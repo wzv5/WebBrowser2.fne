@@ -971,6 +971,7 @@ typedef struct
 #ifndef __GCC_
 	EVENT_NOTIFY2 (DWORD dwFormID, DWORD dwUnitID, INT nEventIndex)
 	{
+		::memset(this, 0, sizeof(EVENT_NOTIFY2));
 		m_dwFormID = dwFormID;
 		m_dwUnitID = dwUnitID;
 		m_nEventIndex = nEventIndex;

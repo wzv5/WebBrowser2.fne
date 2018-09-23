@@ -458,10 +458,10 @@ void CViewHtml::OnNewWindow3(LPDISPATCH* ppDisp, BOOL* Cancel, long dwFlags, LPC
 
 	event.m_arg[2].m_inf.m_int = dwFlags;
 
-	event.m_arg[3].m_inf.m_ppText = (char **)(&bstrUrlContext);
+	event.m_arg[3].m_inf.m_pText = (char *)(&bstrUrlContext);
 	event.m_arg[3].m_dwState = EAV_IS_POINTER;
 
-	event.m_arg[4].m_inf.m_ppText = (char **)(&bstrUrl);
+	event.m_arg[4].m_inf.m_pText = (char *)(&bstrUrl);
 	event.m_arg[4].m_dwState = EAV_IS_POINTER;
 
 	NotifySys(NRS_EVENT_NOTIFY2, (DWORD)&event);
@@ -946,16 +946,16 @@ static EVENT_ARG_INFO2 s_HtmlViewerArgInfo [] =
 	{
 		/*name*/	_WT("UrlContext"),
 		/*explain*/	_WT("The URL of the page that is opening the new window."),
-		/*state*/	EAS_BY_REF,
+		/*state*/	(1 << 0),
 		/*m_dtDataType*/ SDT_TEXT,
 	},
 	//****** 打开新窗口27
 	{
 		/*name*/	_WT("Url"),
 		/*explain*/	_WT("The URL that is opened in the new window."),
-		/*state*/	EAS_BY_REF,
+		/*state*/	(1 << 0),
 		/*m_dtDataType*/ SDT_TEXT,
-	},
+	}
 };
 
 // !!! 此处的定义顺序绝对不可改变，主默认信息放在首位。
